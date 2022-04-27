@@ -23,8 +23,12 @@ export class MessagesService {
         return this.messages
     }
 
-    findById(id: number) {
-        return this.messages.find(message => message.id === id)
+    async findById(id: number) {
+        const msg = this.messages.find(message => message.id === id)
+        if (!msg) {
+            throw Error(`Message with id ${id} not found`)
+        }
+        return
     }
 
     create(message: Message) {
@@ -36,8 +40,13 @@ export class MessagesService {
         this.messages[index] = message
     }
 
-    delete(id: number) {
+    async delete(id: number) {
         const index = this.messages.findIndex(message => message.id === id)
+
+        if (index < 0) {
+            throw Error(`Message with id ${id} not found`)
+        }
+
         this.messages.splice(index, 1)
     }
 }
