@@ -4,8 +4,12 @@ import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 
 @Injectable()
 export class PokemonService {
+  constructor(private readonly prisma: PrismaService) { }
+
   create(createPokemonDto: CreatePokemonDto) {
-    return 'This action adds a new pokemon';
+    return this.prisma.pokemon.create({
+      data: createPokemonDto,
+    })
   }
 
   findAll() {
