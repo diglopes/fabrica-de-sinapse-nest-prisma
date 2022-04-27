@@ -7,9 +7,19 @@ import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 export class PokemonService {
   constructor(private readonly prisma: PrismaService) { }
 
+  private readonly _include = {
+    images: {
+      select: {
+        id: true,
+        url: true,
+      }
+    }
+  }
+
   create(createPokemonDto: CreatePokemonDto) {
     return this.prisma.pokemon.create({
       data: createPokemonDto,
+      include: this._include,
     })
   }
 
@@ -20,14 +30,7 @@ export class PokemonService {
   findOne(id: number) {
     return this.prisma.pokemon.findUnique({
       where: { id },
-      include: {
-        images: {
-          select: {
-            id: true,
-            url: true,
-          }
-        }
-      }
+      include: this._include
     })
   }
 
