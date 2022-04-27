@@ -35,4 +35,9 @@ export class MessagesService {
         const index = this.messages.findIndex(message => message.id === id)
         this.messages[index] = message
     }
+
+    delete(id: number) {
+        const index = this.messages.findIndex(message => message.id === id)
+        this.messages.splice(index, 1)
+    }
 }
