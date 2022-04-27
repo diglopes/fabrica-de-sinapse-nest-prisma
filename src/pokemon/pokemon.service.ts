@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 
@@ -13,7 +14,16 @@ export class PokemonService {
   }
 
   findAll() {
-    return `This action returns all pokemon`;
+    return this.prisma.pokemon.findMany({
+      include: {
+        Images: {
+          select: {
+            id: true,
+            url: true,
+          }
+        }
+      }
+    });
   }
 
   findOne(id: number) {
