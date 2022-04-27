@@ -13,8 +13,8 @@ datasource db {
 model Pokemon {
   id     Int     @id @default(autoincrement())
   name   String  @unique
-  height Int
-  Images Image[]
+  height Int?
+  images Image[]
 }
 
 model Image {
