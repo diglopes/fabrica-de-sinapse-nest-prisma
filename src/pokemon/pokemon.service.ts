@@ -14,20 +14,21 @@ export class PokemonService {
   }
 
   findAll() {
-    return this.prisma.pokemon.findMany({
+    return this.prisma.pokemon.findMany();
+  }
+
+  findOne(id: number) {
+    return this.prisma.pokemon.findUnique({
+      where: { id },
       include: {
-        Images: {
+        images: {
           select: {
             id: true,
             url: true,
           }
         }
       }
-    });
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} pokemon`;
+    })
   }
 
   update(id: number, updatePokemonDto: UpdatePokemonDto) {
@@ -35,6 +36,8 @@ export class PokemonService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} pokemon`;
+    return this.prisma.pokemon.delete({
+      where: { id },
+    })
   }
 }
