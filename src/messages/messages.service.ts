@@ -29,7 +29,7 @@ export class MessagesService {
         if (!msg) {
             throw Error(`Message with id ${id} not found`)
         }
-        return
+        return msg
     }
 
     create(message: MessageDto) {
